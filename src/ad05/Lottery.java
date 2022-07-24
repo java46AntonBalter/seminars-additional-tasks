@@ -11,13 +11,10 @@ public class Lottery {
 		int[] helper = new int[50];
 		int rate = 0;
 		for(int a: winningCombination) {
-			helper[a] = 2;			
+			helper[a] = 1;	
 		}
 		for(int a: playerCombination) {
-			--helper[a];
-			if (helper[a] == 1) {
-				rate++;
-			}
+			if(helper[a] == 1) ++rate;
 		}
 		return rate;
 	}
