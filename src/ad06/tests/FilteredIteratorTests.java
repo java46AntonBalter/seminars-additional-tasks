@@ -52,47 +52,50 @@ class TruePredicate implements Predicate<Integer> {
 }
 
 class FilteredIteratorTests {
+	private IntRangeIterator intIter;
+	private Predicate<Integer> filter;
+	private FilteredIterator<Integer> filteredIter;
     @Test
 	void allValuesPassedTest() {
-    	IntRangeIterator intIter = new IntRangeIterator(0, 10);
-		Predicate<Integer> filter = new TruePredicate();
-		FilteredIterator<Integer> filteredIter = new FilteredIterator<>(intIter, filter);
+    	intIter = new IntRangeIterator(0, 10);
+		filter = new TruePredicate();
+		filteredIter = new FilteredIterator<>(intIter, filter);
 		Integer[] expected = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 		Integer[] res = setResult(filteredIter);
 		assertArrayEquals(expected, res);
     }
 	@Test
 	void noValuesPassedTest() {
-		IntRangeIterator intIter = new IntRangeIterator(1, 1);
-		Predicate<Integer> filter = new EvenPredicate();
-		FilteredIterator<Integer> filteredIter = new FilteredIterator<>(intIter, filter);
+		intIter = new IntRangeIterator(1, 1);
+		filter = new EvenPredicate();
+		filteredIter = new FilteredIterator<>(intIter, filter);
 		Integer[] expected = {};
 		Integer[] res = setResult(filteredIter);
 		assertArrayEquals(expected, res);		
 	}
 	@Test
 	void firstButNotLastValuesPassedTest() {
-		IntRangeIterator intIter = new IntRangeIterator(0, 10);
-		Predicate<Integer> filter = new EvenPredicate();
-		FilteredIterator<Integer> filteredIter = new FilteredIterator<>(intIter, filter);
+		intIter = new IntRangeIterator(0, 10);
+		filter = new EvenPredicate();
+		 filteredIter = new FilteredIterator<>(intIter, filter);
 		Integer[] expected = { 0, 2, 4, 6, 8 };
 		Integer[] res = setResult(filteredIter);
 		assertArrayEquals(expected, res);
 	}
 	@Test
 	void notFirstButLastValuesPassedTest() {
-		IntRangeIterator intIter = new IntRangeIterator(1, 11);
-		Predicate<Integer> filter = new EvenPredicate();
-		FilteredIterator<Integer> filteredIter = new FilteredIterator<>(intIter, filter);
+		intIter = new IntRangeIterator(1, 11);
+		filter = new EvenPredicate();
+		filteredIter = new FilteredIterator<>(intIter, filter);
 		Integer[] expected = { 2, 4, 6, 8, 10 };
 		Integer[] res = setResult(filteredIter);
 		assertArrayEquals(expected, res);
 	}
 	@Test
 	void firstAndLastValuesDontPassTest() {
-		IntRangeIterator intIter = new IntRangeIterator(1, 10);
-		Predicate<Integer> filter = new EvenPredicate();
-		FilteredIterator<Integer> filteredIter = new FilteredIterator<>(intIter, filter);
+		intIter = new IntRangeIterator(1, 10);
+		filter = new EvenPredicate();
+		filteredIter = new FilteredIterator<>(intIter, filter);
 		Integer[] expected = { 2, 4, 6, 8 };
 		Integer[] res = setResult(filteredIter);
 		assertArrayEquals(expected, res);
@@ -100,9 +103,9 @@ class FilteredIteratorTests {
 	
 	@Test
 	void nullSupportTest() {
-		Iterator<Integer> intIter = Arrays.asList(1, null).iterator();
-		Predicate<Integer> filter = new TruePredicate();
-		FilteredIterator<Integer> filteredIter = new FilteredIterator<>(intIter, filter);
+		Iterator<Integer> Iter = Arrays.asList(1, null).iterator();
+		filter = new TruePredicate();
+		filteredIter = new FilteredIterator<>(Iter, filter);
 		Integer[] expected = { 1, null };
 		Integer[] res = setResult(filteredIter);
 		assertArrayEquals(expected, res);
