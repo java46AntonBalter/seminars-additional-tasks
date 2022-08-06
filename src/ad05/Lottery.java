@@ -1,35 +1,37 @@
 package ad05;
 
 public class Lottery {
-	private int[] winningCombination;
+	boolean[] lookupTable = new boolean[49];
 
 	public Lottery(int[] winningCombination) {
-		this.winningCombination = winningCombination;
+		for (int number : winningCombination) {
+			lookupTable[number - 1] = true;
+		}
 	}
 
 	public int rateCombination(int playerCombination[]) {
-		int[] helper = new int[50];
-		int rate = 0;
-		for(int a: winningCombination) {
-			helper[a] = 1;	
+		int res = 0;
+		for (int number : playerCombination) {
+			if (lookupTable[number - 1]) {
+				res++;
+			}
 		}
-		for(int a: playerCombination) {
-			if(helper[a] == 1) ++rate;
-		}
-		return rate;
+		return res;
 	}
 
+	/**
+	 * Simple sanity test
+	 */
 	public static void main(String[] args) {
-		Lottery loto = new Lottery(new int[]{5,2,17,48,43,7,9}) ;
-		if (loto.rateCombination(new int[] {3,5,12,17,44,10,7}) != 3) {
+		Lottery loto = new Lottery(new int[] { 5, 2, 17, 48, 43, 7, 9 });
+		if (loto.rateCombination(new int[] { 3, 5, 12, 17, 44, 10, 7 }) != 3) {
 			System.out.println("Test 1 failed");
-           return;			
+			return;
 		}
-		if (loto.rateCombination(new int[] {3,5,12,17,49,9,7}) != 5) {
+		if (loto.rateCombination(new int[] { 3, 5, 12, 17, 49, 9, 7 }) != 4) {
 			System.out.println("Test 2 failed");
-           return;			
+			return;
 		}
 		System.out.println("Success");
 	}
 }
-
