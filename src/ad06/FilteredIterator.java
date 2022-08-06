@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 
 public class FilteredIterator<T> implements Iterator<T> {
 	private T curr;	
-	boolean currSet = false;	
+	private boolean currSet = false;	
 	private T checkedValue;
 	private Predicate<T> filter;
 	private Iterator<T> srcIterator;
