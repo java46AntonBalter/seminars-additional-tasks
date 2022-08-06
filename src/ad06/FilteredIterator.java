@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 
 public class FilteredIterator<T> implements Iterator<T> {
 	private T curr;	
-	private boolean currSet = false;	
+	private boolean currIsSet;	
 	private T checkedValue;
 	private Predicate<T> filter;
 	private Iterator<T> srcIterator;
@@ -14,12 +14,13 @@ public class FilteredIterator<T> implements Iterator<T> {
     	super();
     	this.srcIterator = srcIterator;
     	this.filter = filter;
+    	this.currIsSet = false;
     		
     }
 
 	@Override
 	public boolean hasNext() {
-		return currSet || setNext();
+		return currIsSet || setNext();
 	}
 
 	@Override
@@ -27,7 +28,7 @@ public class FilteredIterator<T> implements Iterator<T> {
 		if(!hasNext()) {
 			throw new NoSuchElementException();
 		}
-		currSet = false;
+		currIsSet = false;
 		return curr;
 	}
 	private boolean setNext() {		
@@ -35,7 +36,7 @@ public class FilteredIterator<T> implements Iterator<T> {
             checkedValue = srcIterator.next();
             if (filter.test(checkedValue)) {
                 curr = checkedValue;
-                currSet = true;
+                currIsSet = true;
                 return true;
             }
         }
